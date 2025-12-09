@@ -1,0 +1,46 @@
+<div class="category-manager-container">
+  <div class="category-header">
+    <h2>Category Management</h2>
+    <p class="subtitle">Organize your tasks with categories using NgRx state management</p>
+  </div>
+
+  <div class="error-banner" *ngIf="categoriesError$ | async as error">
+    <strong>Error:</strong> {{ error }}
+  </div>
+
+  <div class="category-actions-bar">
+    <button class="btn btn-primary" (click)="showAddForm()" *ngIf="!isFormVisible">
+      + Add Category
+    </button>
+    <app-category-filter></app-category-filter>
+  </div>
+
+  <div class="category-content">
+    <div class="category-main">
+      <app-category-form
+        *ngIf="isFormVisible"
+        [category]="editingCategory"
+        (save)="onSaveCategory($event)"
+        (cancel)="hideForm()"
+      ></app-category-form>
+
+      <app-category-list
+        *ngIf="{
+          categories: categories$ | async,
+          selectedCategory: selectedCategory$ | async,
+          loading: categoriesLoading$ | async
+        } as data"
+        [categories]="data.categories ?? []"
+        [selectedCategoryId]="data.selectedCategory?.id ?? null"
+        [loading]="data.loading ?? false"
+        (select)="onSelectCategory($event)"
+        (edit)="onEditCategory($event)"
+        (delete)="onDeleteCategory($event)"
+      ></app-category-list>
+    </div>
+
+    <div class="category-sidebar">
+      <app-category-stats></app-category-stats>
+    </div>
+  </div>
+</div>

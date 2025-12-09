@@ -1,0 +1,39 @@
+<div class="category-stats-container">
+  <h3>Category Statistics</h3>
+
+  <div class="stats-summary">
+    <div class="stat-card">
+      <div class="stat-value">{{ totalCategories$ | async }}</div>
+      <div class="stat-label">Total Categories</div>
+    </div>
+  </div>
+
+  <div class="stats-details" *ngIf="(categoriesWithStats$ | async) as categories">
+    <div class="stats-header">
+      <h4>Tasks per Category</h4>
+    </div>
+
+    <div class="empty-state" *ngIf="categories.length === 0">
+      <p>No categories available</p>
+    </div>
+
+    <div class="category-stat-list" *ngIf="categories.length > 0">
+      <div *ngFor="let category of categories" class="category-stat-item">
+        <div class="category-info">
+          <div class="category-color-dot" [style.background-color]="category.color"></div>
+          <span class="category-name">{{ category.name }}</span>
+        </div>
+        <div class="category-counts">
+          <span class="task-count">{{ category.taskCount }} tasks</span>
+          <div class="progress-bar" *ngIf="category.taskCount > 0">
+            <div
+              class="progress-fill"
+              [style.width.%]="category.completionPercentage"
+              [style.background-color]="category.color"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

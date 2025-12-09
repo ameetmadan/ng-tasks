@@ -9,6 +9,7 @@ export interface Task {
   priority: 'low' | 'medium' | 'high';
   completed: boolean;
   createdAt: Date;
+  categoryIds?: string[];
 }
 
 @Injectable({

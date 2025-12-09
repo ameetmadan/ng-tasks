@@ -1,0 +1,53 @@
+<div class="category-list-container">
+  <h3>Categories</h3>
+
+  <div class="loading" *ngIf="loading">
+    <div class="spinner"></div>
+    <span>Loading categories...</span>
+  </div>
+
+  <div class="empty-state" *ngIf="!loading && categories.length === 0">
+    <p>No categories yet. Create your first category to get started!</p>
+  </div>
+
+  <div class="category-grid" *ngIf="!loading && categories.length > 0">
+    <div
+      *ngFor="let category of categories"
+      class="category-card"
+      [class.selected]="isSelected(category.id)"
+      (click)="onSelect(category.id)"
+    >
+      <div class="category-color-bar" [style.background-color]="category.color"></div>
+      <div class="category-content">
+        <div class="category-header">
+          <div class="category-icon" *ngIf="category.icon">
+            <span>{{ category.icon }}</span>
+          </div>
+          <h4 class="category-name">{{ category.name }}</h4>
+        </div>
+        <p class="category-description">{{ category.description }}</p>
+        <div class="category-footer">
+          <span class="category-date">
+            Updated {{ category.updatedAt | date:'short' }}
+          </span>
+          <div class="category-actions">
+            <button
+              class="btn-icon"
+              (click)="onEdit(category.id, $event)"
+              title="Edit category"
+            >
+              ✏️
+            </button>
+            <button
+              class="btn-icon"
+              (click)="onDelete(category.id, $event)"
+              title="Delete category"
+            >
+              🗑️
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="app-shell">
+  <header class="app-header">
+    <h1>NgRx Task Manager</h1>
+    <p class="tagline">Task Management with NgRx State Management Example</p>
+  </header>
+
+  <nav class="app-nav">
+    <button
+      class="nav-tab"
+      [class.active]="activeTab === 'tasks'"
+      (click)="switchTab('tasks')"
+    >
+      📋 Tasks
+    </button>
+    <button
+      class="nav-tab"
+      [class.active]="activeTab === 'categories'"
+      (click)="switchTab('categories')"
+    >
+      🏷️ Categories (NgRx)
+    </button>
+  </nav>
+
+  <main class="app-content">
+    <div class="tab-panel" [class.active]="activeTab === 'tasks'">
+      <app-task-manager></app-task-manager>
+    </div>
+
+    <div class="tab-panel" [class.active]="activeTab === 'categories'">
+      <app-category-manager></app-category-manager>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <p>
+      <strong>NgRx Features:</strong> Store · Actions · Reducers · Effects · Selectors · DevTools
+    </p>
+  </footer>
+</div>

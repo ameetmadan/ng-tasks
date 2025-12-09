@@ -1,13 +1,22 @@
-import { Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { TaskManagerComponent } from './app/components/task-manager.component';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { AppShellComponent } from './app/components/app-shell/app-shell.component';
+import { categoryReducer } from './app/store/categories/category.reducer';
+import { CategoryEffects } from './app/store/categories/category.effects';
 
-@Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [TaskManagerComponent],
-  template: `<app-task-manager></app-task-manager>`,
-})
-export class App {}
-
-bootstrapApplication(App);
+bootstrapApplication(AppShellComponent, {
+  providers: [
+    provideStore({
+      categories: categoryReducer
+    }),
+    provideEffects([CategoryEffects]),
+    provideStoreDevtools({
+      maxAge: 25,
+      logOnly: false,
+      trace: true,
+      traceLimit: 75
+    })
+  ]
+});
