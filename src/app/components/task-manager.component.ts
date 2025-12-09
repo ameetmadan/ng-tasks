@@ -117,7 +117,6 @@ export class TaskManagerComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    if (this.taskForm.valid) {
       this.taskService.addTask({
         title: this.taskForm.value.title,
         description: this.taskForm.value.description,
@@ -125,7 +124,6 @@ export class TaskManagerComponent implements OnInit, OnDestroy {
         completed: false
       });
       this.taskForm.reset({ priority: 'medium' });
-    }
   }
 
   toggleTask(taskId: string): void {

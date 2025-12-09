@@ -29,15 +29,14 @@
           type="text"
           formControlName="title"
           placeholder="Enter task title..."
-          [class.error]="titleControl?.invalid && (titleControl?.dirty || titleControl?.touched)"
+          [class.error]="titleControl?.invalid"
           [class.validating]="titleControl?.pending"
         />
-        <div class="validation-message" *ngIf="titleControl?.invalid && (titleControl?.dirty || titleControl?.touched)">
+        @if (titleControl?.invalid) {
+        <div class="validation-message">
           {{ getTitleError() }}
         </div>
-        <div class="validation-message validating" *ngIf="titleControl?.pending">
-          Checking for duplicates...
-        </div>
+        }
       </div>
 
       <div class="form-group">
@@ -66,7 +65,7 @@
       <button
         type="submit"
         class="btn-submit"
-        [disabled]="taskForm.invalid || taskForm.pending"
+        [disabled]="taskForm.invalid"
       >
         Add Task
       </button>
